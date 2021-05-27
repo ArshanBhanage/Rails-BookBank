@@ -1,3 +1,70 @@
+<style>
+.login-container{
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.login-form-1{
+    padding: 5%;
+    
+    margin-left: 25%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+.login-form-1 h3{
+    text-align: center;
+    color: #333;
+}
+
+.login-container form{
+    padding: 10%;
+}
+.btnSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+.btnSubmit1
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+
+.login-form-1 .btnSubmit{
+    font-weight: 600;
+    color: #fff;
+    background-color: #0062cc;
+}
+.login-form-1 .btnSubmit1{
+    font-weight: 600;
+    color: #fff;
+    background-color: Tomato;
+}
+.login-form-2 .btnSubmit{
+    font-weight: 600;
+    color: #0062cc;
+    background-color: #fff;
+}
+.login-form-2 .ForgetPwd{
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+.login-form-1 .ForgetPwd{
+    color: #0062cc;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+</style>
+
+
+<div class="col-md-6 login-form-1", style="text-align: center;">  
 <%= form_with(model: mybook) do |form| %>
   <% if mybook.errors.any? %>
     <div id="error_explanation">
@@ -11,10 +78,17 @@
     </div>
   <% end %>
 
+
   <div class="form-group">
     
     <%= form.text_field :title, class:"form-control", placeholder:"Title" %>
   </div>
+
+  <div class="form-group">
+    
+    <%= form.text_field :subject, class:"form-control", placeholder:"Subject" %>
+  </div>
+
 
   <div class="form-group">
     
@@ -42,9 +116,9 @@
 
   <div class="form-group">
     <%= form.label :Semester %>
-    <div class="controls">
+    
       <%= form.select(:semester, options_for_select([['Sem 1','Sem 1'],['Sem 2','Sem 2'],['Sem 3','Sem 3'],['Sem 4','Sem 4'],['Sem 5','Sem 5'],['Sem 6','Sem 6'],['Sem 7','Sem 7'],['Sem 8','Sem 8']])) %>
-    </div>
+   
   </div>
 
   <div class="form-group">
@@ -61,7 +135,9 @@
   </div>      
    
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-group">
+    <%= form.submit class:"btnSubmit" %> |
+    <%= link_to 'Back', mybooks_path, class:"btnSubmit" %>
   </div>
 <% end %>
+</div>

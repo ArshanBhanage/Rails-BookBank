@@ -1,26 +1,109 @@
-<h2>Log in</h2>
+<style>
+.login-container{
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.login-form-1{
+    padding: 5%;
+    
+    margin-left: 25%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+.login-form-1 h3{
+    text-align: center;
+    color: #333;
+}
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+.login-container form{
+    padding: 10%;
+}
+.btnSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+.btnSubmit1
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+.login-form-1 .btnSubmit{
+    font-weight: 600;
+    color: #fff;
+    background-color: #0062cc;
+}
+.login-form-1 .btnSubmit1{
+    font-weight: 600;
+    color: #fff;
+    background-color: Tomato;
+}
+.login-form-2 .btnSubmit{
+    font-weight: 600;
+    color: #0062cc;
+    background-color: #fff;
+}
+.login-form-2 .ForgetPwd{
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+.login-form-1 .ForgetPwd{
+    color: #0062cc;
+    font-weight: 600;
+    text-decoration: none;
+}
 
+</style>
+
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %> 
+<div class="container login-container" style="width:1000px; margin-top: 100px">
+            <div class="row">
+                <div class="col-md-6 login-form-1">
+                    <h3>Book Bank</h3>
+                    <form>
+                        <div class="form-group">
+                            <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"Email" %>
+                        </div>
+                        <div class="form-group">
+                            <%= f.password_field :password, autocomplete: "current-password", class:"form-control", placeholder:"Password" %>
+                        </div>
+                        <div class="form-group">
   <% if devise_mapping.rememberable? %>
-    <div class="field">
+    <div class="form_group">
       <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <%= f.label :remember_me, style:"color:black" %>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
+    </label>
+    <br>
+    <br>
+    <label>
+  <div class="form-group">
+    <%= f.submit "Log in", type:"submit", class:"btnSubmit", style: "width:100px" %>
   </div>
-<% end %>
+    </label>
+    <br>
+    <br>
+  <% end %>
+                        </div>
+                        <div class="form-group">
+                            
+                            <%= render "devise/shared/links" %>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-<%= render "devise/shared/links" %>
+
+
+
+<% end %>

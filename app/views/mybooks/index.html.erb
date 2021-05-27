@@ -3,7 +3,7 @@
 
       <div style="text-align: center;">
         <%= search_form_for @q do |form| %>   
-        <%= form.search_field :title_or_price_or_year_or_semester_cont, placeholder:"  Search by title,semester,edition ", style:"width:500px" %>
+        <%= form.search_field :title_or_price_or_year_or_semester_or_subject_cont, placeholder:"  Search by title,semester,edition ", style:"width:500px" %>
        
 
         <%= form.submit %>
@@ -39,6 +39,7 @@ Book stuff
   padding: 10px 10px 0 10px;
   vertical-align: top;
   transition: height 1s;
+  border-style: groove;
 }
 
 .cover {
@@ -94,7 +95,7 @@ h1 {
 
 
 
-  <div class="container">
+  <div class="container" style="text-align: center;">
     <% @mybooks.each do |mybook| %>    
 
   
@@ -105,7 +106,7 @@ h1 {
           <%= link_to (image_tag mybook.image, height:"100%", width:"100%"), mybook %>
         </div>
         <div class="description">
-          <p class="title"><td><%= link_to (mybook.title), mybook, class:"btn default", style:"text-decoration: none; font-weight: bold" %></td><br> 
+          <p class="title"><td><%= link_to (mybook.title), mybook, class:"btn default", style:"text-decoration: none; text-align:center; font-weight: bold" %></td><br> 
             </p>
         </div>
       </div>

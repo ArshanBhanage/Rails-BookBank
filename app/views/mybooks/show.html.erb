@@ -1,28 +1,61 @@
+<style>.im {
+  border: 2px solid gray;
+  margin-right: 200px;
+  float: left;
+}
+.userdetail{
+
+ 
+  float: right;
+  
+
+}
+
+.userdetail >.ptag{
+  color: black;
+  font-weight: bold;
+  margin-bottom: 20px;
+  }
+
+.bookdetails >.ptag{
+  color: black;
+  font-weight: bold;
+  margin-bottom: 20px;
+
+  }  
+
+.bookdetails{
+
+  margin-bottom: 100px;
+}  
+
+.btnSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+
+.form-group .btnSubmit{
+    font-weight: 600;
+    color: #fff;
+    background-color: #0062cc;
+}
+
+</style>
+
+
 <p id="notice"><%= notice %></p>
+<% if user_signed_in? %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @mybook.title %>
-</p>
-
-<p>
-  <strong>Year:</strong>
-  <%= @mybook.year %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @mybook.price %>
-</p>
-
-<p>
-  <strong>Semester:</strong>
-  <%= @mybook.semester %>
-</p>
-
+  <div class="im">
 <%= link_to (image_tag @mybook.image, height:"300px", width:"200px"), @mybook %>
+</div>
 
-
+<div class="userdetail">
+ <h5 class="ptag">Seller Details</h5>
 <p>
   <strong>Name:</strong>
   <%= @mybook.name %>
@@ -35,6 +68,62 @@
   <strong>Instagram:</strong>
   <%= @mybook.instagram %>
 </p>
+</div>
 
- 
-<%= link_to 'Back', mybooks_path %>
+<div class="bookdetails">
+<h5 class="ptag">Book Details</h5>
+<p>
+
+  <strong>Title:</strong>
+  <%= @mybook.title %>
+</p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @mybook.subject %>
+</p>
+
+<p>
+  <strong>Book Edition:</strong>
+  <%= @mybook.year %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <i>₹</i><%= @mybook.price %>
+</p>
+
+<p>
+  <strong>Semester:</strong>
+  <%= @mybook.semester %>
+</p>
+
+
+</div>
+
+<br>
+   <div class="form-group">
+    <%= link_to 'Back', mybooks_path, class:"btnSubmit" %>
+  </div>
+
+
+<% else %>
+
+
+
+
+<div class="cddd">
+  <h2></h2>
+
+  <div class="alert alert-info">
+    <strong>Login First!!</strong>
+  </div>
+
+<%= link_to "Login", new_user_session_path %>
+</div>
+
+
+
+
+
+<% end %>
