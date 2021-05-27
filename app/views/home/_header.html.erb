@@ -1,0 +1,66 @@
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "190px";
+  document.getElementById("main").style.marginLeft = "190px";
+  document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+}
+
+</script>
+
+<style>
+  .p3 {
+  font-family: "Lucida Handwriting", "Courier New", cursive;
+  color: white;
+
+  hover {
+    color: white;
+    text-decoration: none;
+  }
+  
+}
+</style>
+
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark " style="background-color: #0062cc">
+  <div class="container-fluid">
+    <span style="font-size:30px;cursor:pointer; color: #ffffff" onclick="openNav()">&#9776;</span>
+    <%= link_to 'Book Bank', root_path, class:"p3", style:"font-size: 190%; margin-left: 600px; text-decoration: none; color: white " %>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+
+
+      <% if user_signed_in? %> 
+
+        
+
+        <li class="nav-item">
+          <%= link_to 'Edit Profile', edit_user_registration_path, class:'p4', style:"margin-left: 400px; color: white; text-decoration: none" %> 
+        </li>
+                
+        
+        <li class="nav-item">
+          <%= link_to 'Log Out', destroy_user_session_path, method: :delete, class:'p4', style:"; color: white; margin-left: 25px; text-decoration: none" %> 
+
+      <% else %>
+        <li class="nav-item">
+          <%= link_to 'Sign Up', new_user_registration_path, class:'p4', style:"margin-left: 470px; color: white; text-decoration: none" %> 
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Log In', new_user_session_path, class:"p4", style:"margin-left: 25px; color: white; text-decoration: none" %>
+        </li>
+
+      <% end %>
+          
+        </li>                   
+      </ul>
+
+    </div>
+  </div>
+</nav>
+

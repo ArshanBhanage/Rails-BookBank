@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<h3 style="text-align: center;">My Books</h3>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Price</th>
+      <th>Semester</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Instagram</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @mybooks.each do |mybook| %>
+      <% if mybook.user == current_user %>
+      <tr>
+        <td><%= mybook.title %></td>
+        <td><%= mybook.year %></td>
+        <td><%= mybook.price %></td>
+        <td><%= mybook.semester %></td>
+        <td><%= mybook.name %></td>
+        <td><%= mybook.email %></td>
+        <td><%= mybook.instagram %></td>
+        
+        
+        
+
+        <td><%= link_to 'Show Details', mybook %></td>
+        
+        <td><%= link_to 'Edit Book', edit_mybook_path(mybook) %></td>
+        <td><%= link_to 'Delete', mybook, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        
+
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Add Book', new_mybook_path %>
