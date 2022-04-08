@@ -3,11 +3,36 @@ class MybooksController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :correct_user, only: [:edit, :update, :destroy]
   # GET /mybooks or /mybooks.json
-  def index
-    @q = Mybook.ransack(params[:q])
-    @mybooks = @q.result
-
+  
+  def add_to_cart
+    id = params[:id].to_i
+    session[:cart] << id unless session[:cart].include?(id)
+    redirect_to mybooks_path
   end
+
+  def remove_from_cart
+    id = params[:id].to_i
+    session[:cart].delete(id)
+    redirect_to mybooks_path
+  end
+   
+
+
+  def index
+    search = params[:query].present? ? params[:query] : nil
+   #@mybooks = Mybook.search(params[:query]) 
+
+    
+    @mybooks = if search
+      #Book.where("title LIKE ? OR plot LIKE ?", "%#{search}%", "%#{search}%")
+      Mybook.search(search, where: {price: { gt: 0}})
+      
+    else
+      Mybook.all 
+    end
+  end
+
+ 
 
   def browse
     @mybooks = Mybook.all
@@ -80,6 +105,6 @@ class MybooksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def mybook_params
-      params.require(:mybook).permit(:title, :year, :price, :semester, :user_id, :image, :name, :email, :instagram, :subject )
+      params.require(:mybook).permit(:title, :year, :price, :semester, :user_id, :image, :name, :email, :instagram, :subject)
     end
 end

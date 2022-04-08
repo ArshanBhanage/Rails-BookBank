@@ -55,17 +55,17 @@
 </div>
 
 <div class="userdetail">
- <h5 class="ptag">Seller Details</h5>
+ <h5 class="ptag"> </h5>
 <p>
-  <strong>Name:</strong>
+  <strong>Author:</strong>
   <%= @mybook.name %>
 </p>
 <p>
-  <strong>Email:</strong>
+  <strong>Branch:</strong>
   <%= @mybook.email %>
 </p>
 <p>
-  <strong>Instagram:</strong>
+  <strong>Book Edition:</strong>
   <%= @mybook.instagram %>
 </p>
 </div>
@@ -84,8 +84,13 @@
 </p>
 
 <p>
-  <strong>Book Edition:</strong>
+  <strong>Book Condition:</strong>
   <%= @mybook.year %>
+</p>
+
+<p>
+
+  <%= @mybook.stripe_price_id %>
 </p>
 
 <p>
@@ -98,6 +103,7 @@
   <%= @mybook.semester %>
 </p>
 
+<%= button_to "Buy", checkout_create_path, params: {id: @mybook.id}, remote: true, data: {turbo: false} %>
 
 </div>
 
@@ -105,6 +111,8 @@
    <div class="form-group">
     <%= link_to 'Back', mybooks_path, class:"btnSubmit" %>
   </div>
+
+
 
 
 <% else %>

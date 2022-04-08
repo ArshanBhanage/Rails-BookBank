@@ -92,7 +92,7 @@
 
   <div class="form-group">
     
-    <%= form.text_field :year, class:"form-control", placeholder:"Book Edition" %>
+    <%= form.text_field :year, class:"form-control", placeholder:"Book Condition" %>
   </div>
 
   <div class="form-group">
@@ -122,16 +122,21 @@
   </div>
 
   <div class="form-group">
-    <%= form.text_field :name, class:"form-control", placeholder:"Name" %>
+    <%= form.text_field :name, class:"form-control", placeholder:"Author" %>
   </div>
 
   <div class="form-group">
-    <%= form.text_field :email, class:"form-control", placeholder:"Email" %>
+    <%# <%= form.text_field :email, class:"form-control", placeholder:"Branch" %>
+  
+      <%= form.label :Branch %>
+    
+      <%= form.select(:email, options_for_select([['Computer Science','Computer Science'],['Information Technology','Information Technology'],['Electronics and Telecommunication','Electronics and Telecommunication'],['Mechanical Engineering','Mechanical Engineering'],['Electrical Engineering','Electrical Engineering'],['Civil Engineering','Civil Engineering'],['Chemical Engineering','Chemical Engineering']])) %>
+   
   </div>
 
   <div class="form-group">
     
-    <%= form.text_field :instagram, class:"form-control", placeholder:"Instagram" %>
+    <%= form.text_field :instagram, class:"form-control", placeholder:"Book Edition" %>
   </div>      
    
 

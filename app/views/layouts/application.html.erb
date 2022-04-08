@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,13 +13,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <script src="https://js.stripe.com/v3/"></script>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
     <%= render 'home/header' %> <br><br>
     <div class="container"><%= render 'home/sidenav' %><br><br>
+       
     <%= yield %>
   </div>
     <br><br> <%= render 'home/footer' %>    
