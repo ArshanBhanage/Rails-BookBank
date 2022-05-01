@@ -1,18 +1,10 @@
 class Mybook < ApplicationRecord
 	has_one_attached :image
 	belongs_to :user
-	searchkick word_middle: [:title, :price, :semester, :subject]
+   #searchkick
+	searchkick word_middle: [:title, :price, :semester, :subject], suggest:[:title]
    validates :title, :price, presence: true 
-
- #include Tire::Model::Search
- #include Tire::Model::Callbacks
-
-#def self.search(params)
-#	tire.search(load: true) do
-#		query { string params[:query] } if params[:query].present?	
-#	end
-#end
-
+   
 
   def to_s
    title
@@ -36,10 +28,11 @@ end
 
    		title: title,
    		price: price,
-   		#year: year,
+   		year: year,
    		semester: semester,
    		subject: subject,
          email: email,
+         name: name,
    	}
    end  
 

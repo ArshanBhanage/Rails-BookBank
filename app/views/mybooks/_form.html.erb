@@ -7,7 +7,7 @@
 .login-form-1{
     padding: 5%;
     
-    margin-left: 25%;
+    margin-left: 25.5%;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
 }
 .login-form-1 h3{
@@ -64,7 +64,7 @@
 </style>
 
 
-<div class="col-md-6 login-form-1", style="text-align: center;">  
+<div class="col-md-6 login-form-1 border border-info", style="text-align: center;">  
 <%= form_with(model: mybook) do |form| %>
   <% if mybook.errors.any? %>
     <div id="error_explanation">
@@ -91,8 +91,14 @@
 
 
   <div class="form-group">
+    <%= form.label :Condition %>
     
-    <%= form.text_field :year, class:"form-control", placeholder:"Book Condition" %>
+      <%= form.select(:year, options_for_select([['Good','Good'],['Moderate','Moderate'],['Bad','Bad']])) %>
+   
+  </div>
+
+  <div class="form-group">
+    <%= form.text_field :description, class:"form-control", placeholder:"Book Description" %>
   </div>
 
   <div class="form-group">
@@ -117,7 +123,7 @@
   <div class="form-group">
     <%= form.label :Semester %>
     
-      <%= form.select(:semester, options_for_select([['Sem 1','Sem 1'],['Sem 2','Sem 2'],['Sem 3','Sem 3'],['Sem 4','Sem 4'],['Sem 5','Sem 5'],['Sem 6','Sem 6'],['Sem 7','Sem 7'],['Sem 8','Sem 8']])) %>
+      <%= form.select(:semester, options_for_select([['Semester 1','Semester 1'],['Semester 2','Semester 2'],['Semester 3','Semester 3'],['Semester 4','Semester 4'],['Semester 5','Semester 5'],['Semester 6','Semester 6'],['Semester 7','Semester 7'],['Semester 8','Semester 8']])) %>
    
   </div>
 

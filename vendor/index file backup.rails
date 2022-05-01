@@ -1,0 +1,256 @@
+
+
+<p id="notice"><%= notice %></p>
+    <h3 style="text-align: center;"> List of all books</h3>
+
+
+
+
+
+
+<%= form_tag(mybooks_path, method: :get, class: "form_inline", role: 'search') do %>
+  <div class="input-group">
+    <%= text_field_tag :query, params[:query],
+    id: 'mybooks_search',
+    autocomplete: :off,
+    placeholder: 'Search', class: 'form-control' %>
+
+
+
+
+    <div class="input-group-btn search-panel">
+      <%= link_to 'Clear', mybooks_path, class: "btn btn-default" %>
+      <%= submit_tag 'Search', name: nil, class: "btn btn-default" %>
+    </div>
+  </div>
+  <br>
+
+
+
+
+
+<% end %>
+
+
+
+
+<style>.container {
+  margin: 0 auto;
+  max-width: 910px;
+}
+
+.containerbuy {
+  margin: 0 auto;
+  max-width: 910px;
+}
+
+.containercart {
+  margin: 0 auto;
+  max-width: 910px;
+}
+
+.choose {
+  width: 100%;
+  height: 40px;
+}
+.fa {
+  margin-right: 20px;
+  font-size: 30px;
+  color: gray;
+  float: right;
+}
+/******************************************
+Book stuff
+*******************************************/
+
+.book {
+  display: inline-block;
+  width: 230px;
+  height: 370px;
+  box-shadow: 0 0 20px #aaa;
+  margin: 25px;
+  padding: 10px 10px 0 10px;
+  vertical-align: top;
+  transition: height 1s;
+  border-style: groove;
+}
+
+.cover {
+  border: 2px solid gray;
+  height: 66%;
+  overflow: hidden;
+}
+
+.cover img {
+  width: 100%;
+}
+
+.book p {
+  margin-top: 1px;
+  font-size: 20px;
+}
+
+.book .author {
+  font-size: 13px;
+}
+@media (max-width: 941px) {
+  .container {
+    max-width: 700px;
+  }
+  .book {
+    margin: 49px;
+}
+@media (max-width: 730px) {
+  .book {
+    display: block;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+  .cover {
+    
+  }
+}
+
+/*********************************
+other
+**********************************/
+
+h1 {
+  color: gray;
+  text-align: center;
+  font-size: 50px;
+  margin-bottom: -3px;
+}
+</style>
+
+<% if user_signed_in? %>
+
+  <td> <% current_user.stripe_customer_id %> </td>
+<% end %>
+
+  <div class="container" style="text-align: center;">
+    
+     <% if @cart.present? %>
+      <hr>
+      <h3>Your cart</h3>
+     <% end %>  
+
+
+    <% @cart.each do |mybook| %>
+     <%= mybook.title %><br>
+    <% end %> 
+    
+    <% if @cart.present? %>
+       
+       <% @cart.collect { |item| item.to_builder.attributes! } %>
+     
+     <%= button_to "Buy", checkout_create_path, remote: true, data: {turbo: false} %>
+    <% end %>
+    <hr>
+
+
+
+<div class="abcd" >
+  <h6>Branch</h6>
+<% @mybooks.aggs["email"]["buckets"].each do |bucket| %>  
+<div>
+  <% if params[:email] == bucket["key"] %>
+     <input type="checkbox" name="field name" value="Initial value" checked="yes"><strong><%= link_to bucket["key"], request.params.except(:email) %></strong>
+  <% else %>
+     <input type="checkbox" name="field name" value="Initial value"><%= link_to bucket["key"], request.params.merge(email: bucket["key"]) %>
+  <% end %>   
+ 
+  <h9>(</h9><%= bucket["doc_count"] %><h9>)</h9>      
+</div>
+<% end %>
+
+
+  <h6>Semester</h6>
+<% @mybooks.aggs["semester"]["buckets"].each do |bucket| %>  
+<div>
+  <% if params[:semester] == bucket["key"] %>
+     <strong><%= link_to bucket["key"], request.params.except(:semester) %></strong>
+  <% else %>
+     <%= link_to bucket["key"], request.params.merge(semester: bucket["key"]) %>
+  <% end %>   
+ 
+  <h9>(</h9><%= bucket["doc_count"] %><h9>)</h9>
+</div>
+<% end %>
+
+
+  <!-- <h6>Name</h6>
+<% @mybooks.aggs["title"]["buckets"].each do |bucket| %>  
+<div>
+  <% if params[:title] == bucket["key"] %>
+     <strong><%= link_to bucket["key"], request.params.except(:title) %></strong>
+  <% else %>
+     <%= link_to bucket["key"], request.params.merge(title: bucket["key"]) %>
+  <% end %>   
+ 
+  <%= bucket["doc_count"] %>
+</div>
+<% end %>
+
+
+
+
+  <h6>Price</h6>
+<% @mybooks.aggs["price"]["buckets"].sort_by{ |b| b["key"] }.each do |bucket| %>  
+<div>
+  <% if params[:price] == bucket["key"] %>
+     <strong><% link_to price_range_name(bucket), request.params.except(:price) %></strong>
+  <% else %>
+     <% link_to price_range_name(bucket), request.params.merge(price: bucket["key"]) %>
+  <% end %>   
+ 
+  <% bucket["doc_count"] %>
+</div>
+<% end %>
+ -->
+
+
+
+  </div>
+
+
+
+
+
+
+    <% @mybooks.each do |mybook| %>    
+      <div class="book read">
+        <div class="cover">
+        
+          <%= link_to (image_tag mybook.image, height:"100%", width:"100%"), mybook %>
+          </div>
+        <div class="description">
+          <p class="title"><td><%= link_to (mybook.title), mybook, class:"btn default", style:"text-decoration: none; text-align:center; font-weight: bold" %>
+            </td> 
+        
+            <div class="containercart" style="padding-right: 0px; text-align: left;">
+            <% if @cart.include?(mybook) %>
+              <%= button_to "Remove from cart", remove_from_cart_path(mybook), method: :delete %>
+            <% else %>
+              <%= button_to "Add to cart", add_to_cart_path(mybook) %>
+            <% end %>    
+            </div>
+
+            </p>
+
+        </div>
+
+      </div>
+      
+
+     
+
+    <% end %>  
+
+  </div>
+
+
+
+
+
+

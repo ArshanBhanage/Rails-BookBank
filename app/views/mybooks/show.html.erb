@@ -1,6 +1,6 @@
 <style>.im {
   border: 2px solid gray;
-  margin-right: 200px;
+  
   float: left;
 }
 .userdetail{
@@ -46,31 +46,33 @@
 
 </style>
 
-
+<div class= "margin-top-right-bot-left" style="margin: 0px 60px 20px 60px;">
 <p id="notice"><%= notice %></p>
 <% if user_signed_in? %>
 
-  <div class="im">
+  <div class="im" style="">
 <%= link_to (image_tag @mybook.image, height:"300px", width:"200px"), @mybook %>
 </div>
 
-<div class="userdetail">
+<div class="userdetail" style="padding-right: 15%">
  <h5 class="ptag"> </h5>
+
+
 <p>
-  <strong>Author:</strong>
-  <%= @mybook.name %>
+  <strong>Book Condition:</strong>
+  <%= @mybook.year %>
 </p>
+
 <p>
-  <strong>Branch:</strong>
-  <%= @mybook.email %>
+  <strong>Book Description:</strong>
+  <%= @mybook.description %>
 </p>
-<p>
-  <strong>Book Edition:</strong>
-  <%= @mybook.instagram %>
-</p>
+
+
+
 </div>
 
-<div class="bookdetails">
+<div class="bookdetails" style="padding-left: 30%">
 <h5 class="ptag">Book Details</h5>
 <p>
 
@@ -84,13 +86,8 @@
 </p>
 
 <p>
-  <strong>Book Condition:</strong>
-  <%= @mybook.year %>
-</p>
 
-<p>
-
-  <%= @mybook.stripe_price_id %>
+  <% @mybook.stripe_price_id %>
 </p>
 
 <p>
@@ -99,16 +96,29 @@
 </p>
 
 <p>
+  <strong>Author:</strong>
+  <%= @mybook.name %>
+</p>
+<p>
+  <strong>Branch:</strong>
+  <%= @mybook.email %>
+</p>
+<p>
+  <strong>Book Edition:</strong>
+  <%= @mybook.instagram %>
+</p>
+
+<p>
   <strong>Semester:</strong>
   <%= @mybook.semester %>
 </p>
 
-<%= button_to "Buy", checkout_create_path, params: {id: @mybook.id}, remote: true, data: {turbo: false} %>
+<% button_to "Buy", checkout_create_path, params: {id: @mybook.id}, remote: true, data: {turbo: false} %>
 
 </div>
 
 <br>
-   <div class="form-group">
+   <div class="form-group" style="padding-left: 10%">
     <%= link_to 'Back', mybooks_path, class:"btnSubmit" %>
   </div>
 
@@ -135,3 +145,4 @@
 
 
 <% end %>
+</div>

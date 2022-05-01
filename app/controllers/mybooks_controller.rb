@@ -19,23 +19,30 @@ class MybooksController < ApplicationController
 
 
   def index
-    search = params[:query].present? ? params[:query] : nil
-   #@mybooks = Mybook.search(params[:query]) 
-
-    
-    @mybooks = if search
+    search = params[:query].presence || "*"
+    #search = params[:query].present? ? params[:query] : nil
+    #@mybooks = Mybook.search(params[:query]) 
+    #@mybooks = if search
       #Book.where("title LIKE ? OR plot LIKE ?", "%#{search}%", "%#{search}%")
-      Mybook.search(search, where: {price: { gt: 0}})
-      
-    else
-      Mybook.all 
-    end
+     # Mybook.search(search, where: {price: { gt: 0}})
+      # else
+      #Mybook.all
+    #end
+   
+      args ={}
+      args[:email] = params[:email] if params[:email].present?
+      args[:semester] = params[:semester] if params[:semester].present?
+      args[:year] = params[:year] if params[:year].present?     
+    #price_ranges = [{to: 200}, {from: 200, to: 400}, {from: 400, to: 600}, {from: 600}]    
+      @mybooks = Mybook.search search, misspellings: {edit_distance: 4}, suggest: true , where: args, aggs: {title: {}, email: {}, year: {}, semester: {}, price: {}}  
   end
 
- 
+  def autocomplete
+     render json: Mybook.search(params[:query], fields: [{title: :word_middle}], limit: 10, misspellings: {below: 5}).map(&:title)
+  end
 
   def browse
-    @mybooks = Mybook.all
+     @mybooks = Mybook.all
   end
   
 
@@ -105,6 +112,6 @@ class MybooksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def mybook_params
-      params.require(:mybook).permit(:title, :year, :price, :semester, :user_id, :image, :name, :email, :instagram, :subject)
+      params.require(:mybook).permit(:title, :year, :price, :semester, :user_id, :image, :name, :email, :instagram, :subject, :description)
     end
 end

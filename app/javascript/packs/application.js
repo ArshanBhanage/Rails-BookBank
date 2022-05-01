@@ -11,3 +11,10 @@ import "channels"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+
+jQuery ->
+  $("#query").autocomplete(
+    source: "/mybooks/autocomplete",
+    minLength: 2
+  	)

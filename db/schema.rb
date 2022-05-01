@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_20_181508) do
+ActiveRecord::Schema.define(version: 2022_05_01_111006) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -55,12 +55,13 @@ ActiveRecord::Schema.define(version: 2022_03_20_181508) do
     t.string "subject"
     t.string "stripe_mybook_id"
     t.string "stripe_price_id"
+    t.string "description"
     t.index ["user_id"], name: "index_mybooks_on_user_id"
   end
 
   create_table "pay_charges", force: :cascade do |t|
-    t.bigint "customer_id", null: false
-    t.bigint "subscription_id"
+    t.integer "customer_id", null: false
+    t.integer "subscription_id"
     t.string "processor_id", null: false
     t.integer "amount", null: false
     t.string "currency"
@@ -101,7 +102,7 @@ ActiveRecord::Schema.define(version: 2022_03_20_181508) do
   end
 
   create_table "pay_payment_methods", force: :cascade do |t|
-    t.bigint "customer_id", null: false
+    t.integer "customer_id", null: false
     t.string "processor_id", null: false
     t.boolean "default"
     t.string "type"
@@ -112,7 +113,7 @@ ActiveRecord::Schema.define(version: 2022_03_20_181508) do
   end
 
   create_table "pay_subscriptions", force: :cascade do |t|
-    t.bigint "customer_id", null: false
+    t.integer "customer_id", null: false
     t.string "name", null: false
     t.string "processor_id", null: false
     t.string "processor_plan", null: false

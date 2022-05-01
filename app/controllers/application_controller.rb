@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-
+  
+  #include Pagy::Backend
   before_action :initialize_session
   before_action :load_cart
 

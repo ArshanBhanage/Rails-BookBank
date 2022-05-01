@@ -1,40 +1,8 @@
 <p id="notice"><%= notice %></p>
-    <h3 style="text-align: center;"> List of all books</h3>
-
-
-
-
-
-
-
-<%= form_tag(mybooks_path, method: :get, class: "form_inline", role: 'search') do %>
-  <div class="input-group">
-    <%= text_field_tag :query, params[:query],
-    id: 'mybooks_search',
-    autocomplete: :off,
-    placeholder: 'Search', class: 'form-control' %>
-
-
-
-
-
-    <div class="input-group-btn search-panel">
-      <%= link_to 'Clear', mybooks_path, class: "btn btn-default" %>
-      <%= submit_tag 'Search', name: nil, class: "btn btn-default" %>
-    </div>
-  </div>
-  <br>
-
-
-
-
-
-<% end %>
-
-
-
-
-<style>.container {
+  
+    
+<style>
+.containerabcd {
   margin: 0 auto;
   max-width: 910px;
 }
@@ -51,7 +19,7 @@
 
 .choose {
   width: 100%;
-  height: 40px;
+  height: 20px;
 }
 .fa {
   margin-right: 20px;
@@ -66,7 +34,7 @@ Book stuff
 .book {
   display: inline-block;
   width: 230px;
-  height: 370px;
+  height: 330px;
   box-shadow: 0 0 20px #aaa;
   margin: 25px;
   padding: 10px 10px 0 10px;
@@ -86,19 +54,22 @@ Book stuff
 }
 
 .book p {
+    text-align: center;
   margin-top: 1px;
   font-size: 20px;
 }
 
 .book .author {
+  text-align: center;
   font-size: 13px;
 }
 @media (max-width: 941px) {
-  .container {
+  .containerabcd {
     max-width: 700px;
   }
   .book {
     margin: 49px;
+    text-align: center;
 }
 @media (max-width: 730px) {
   .book {
@@ -123,35 +94,153 @@ h1 {
 }
 </style>
 
-<% if user_signed_in? %>
+    <!-- CSS property to place div
+      side by side -->
+    <style>
+      #leftbox {
+        float:left;
+        background:#EFE9E9;
+        width:16%;
+        height:auto;
+      }
+      #middlebox{
+        float:left;
+        background:White;
+        width:68%;
+        height:auto;
+      }
+      #rightbox{
+        float:right;
+        background:#EFE9E9;
+        width:16%;
+        height:auto;
+      }
+      h1{
+        color:green;
+        text-align:center;
+      }
+    </style>
+  
+<h1>List of all Books</h1><br>
 
-  <td> <%= current_user.stripe_customer_id %> </td>
+  <%= form_tag(mybooks_path, method: :get, class: "form_inline", role: 'search') do %>
+  <div class="input-group " style="width: 1000px; margin-left: 280px">
+    <%= text_field_tag :query, params[:query],
+    id: 'mybooks_search',
+    autocomplete: :on,
+    placeholder: 'Search by title, author, subject..', class: 'form-control' %>
+
+  <div class="input-group-btn search-panel" style="padding-left: 6px;">
+      <%= link_to 'Clear', mybooks_path, class: "btn btn-warning" %>
+      <%= submit_tag 'Search', name: nil, class: "btn btn-primary" %>
+    </div>
+  </div>
+  <br>
+
+  <% if @mybooks.suggestions.any? %>
+    <p style="margin-left: 35%">Did you mean: <strong><%= @mybooks.suggestions.first %></strong> ?</p>
+  <% end %>
+
 <% end %>
 
-  <div class="container" style="text-align: center;">
-    
-     <% if @cart.present? %>
-      <hr>
-      <h3>Your cart</h3>
-     <% end %>  
 
+<% if user_signed_in? %>
 
-    <% @cart.each do |mybook| %>
-     <%= mybook.title %><br>
-    <% end %> 
-    
-    <% if @cart.present? %>
-       
-       <%= @cart.collect { |item| item.to_builder.attributes! } %>
-     
-     <%= button_to "Buy", checkout_create_path, remote: true, data: {turbo: false} %>
-    <% end %>
-    <hr>
-    <% @mybooks.each do |mybook| %>    
+  <td> <% current_user.stripe_customer_id %> </td>
+<% end %>
 
   
+    <div id = "boxes" style="margin-bottom: 100px; width: 1500px;height: 100%; padding-left: 2%; padding-bottom: 30%; ">
+      
+      
+      <div id = "leftbox" class="border border-dark">
+        <div class="abcd" >
+  <table class="table">
+      <thead class="thead-dark">
+        <tr>
+       <th>Branch</th>
+     </tr>
+     </thead>
+   </table>
+<% @mybooks.aggs["email"]["buckets"].each do |bucket| %>  
+<div>
+  <% if params[:email] == bucket["key"] %>
+     <input type="checkbox" name="field name" value="Initial value" checked="yes" style="margin-left: 5%;"><strong><%= link_to bucket["key"], request.params.except(:email), style:"text-decoration:none; color:Black;" %></strong>
+  <% else %>
+     <input type="checkbox" name="field name" value="Initial value"style="margin-left: 5%;"><%= link_to bucket["key"], request.params.merge(email: bucket["key"]), style:"text-decoration:none; color:Black;" %>
+  <% end %>   
+ 
+  <h9>(</h9><%= bucket["doc_count"] %><h9>)</h9>      
+</div>
+<% end %>
+<br>
+
+  <table class="table">
+      <thead class="thead-dark">
+        <tr>
+       <th>Semester</th>
+     </tr>
+     </thead>
+   </table>
+<% @mybooks.aggs["semester"]["buckets"].each do |bucket| %>  
+<div>
+  <% if params[:semester] == bucket["key"] %>
+     <input type="checkbox" name="field name" value="Initial value" checked="yes" style="margin-left: 5%;" ><strong><%= link_to bucket["key"], request.params.except(:semester), style:"text-decoration:none; text-align:center; color:Black;" %></strong>
+  <% else %>
+     <input type="checkbox" name="field name" value="Initial value" style="margin-left: 5%;" ><%= link_to bucket["key"], request.params.merge(semester: bucket["key"]), style:"text-decoration:none; color:Black; " %>
+  <% end %>   
+ 
+  <h9>(</h9><%= bucket["doc_count"] %><h9>)</h9>
+</div>
+<% end %>
+<br>
+
+  <table class="table">
+      <thead class="thead-dark">
+        <tr>
+       <th>Book Condition</th>
+     </tr>
+     </thead>
+   </table>
+<% @mybooks.aggs["year"]["buckets"].each do |bucket| %>  
+<div>
+  <% if params[:year] == bucket["key"] %>
+     <input type="checkbox" name="field name" value="Initial value" checked="yes" style="margin-left: 5%;" ><strong><%= link_to bucket["key"], request.params.except(:year), style:"text-decoration:none; text-align:center; color:Black;" %></strong>
+  <% else %>
+     <input type="checkbox" name="field name" value="Initial value" style="margin-left: 5%;" ><%= link_to bucket["key"], request.params.merge(year: bucket["key"]), style:"text-decoration:none; color:Black;" %>
+  <% end %>   
+ 
+  <h9>(</h9><%= bucket["doc_count"] %><h9>)</h9>
+</div>
+<% end %>
+<br>
 
 
+
+
+
+  <!--<h6>Price</h6>
+<% @mybooks.aggs["price"]["buckets"].sort_by{ |b| b["key"] }.each do |bucket| %>  
+<div>
+  <% if params[:price] == bucket["key"] %>
+     <strong><% link_to price_range_name(bucket), request.params.except(:price) %></strong>
+  <% else %>
+     <% link_to price_range_name(bucket), request.params.merge(price: bucket["key"]) %>
+  <% end %>   
+ 
+  <% bucket["doc_count"] %>
+</div>
+<% end %>
+ -->
+
+
+
+  </div>
+      </div>
+      
+      <div id = "middlebox" class="border border-dark">
+        <div class="containerabcd" style="text-align: center;">
+              <% @mybooks.each do |mybook| %>    
       <div class="book read">
         <div class="cover">
         
@@ -160,12 +249,12 @@ h1 {
         <div class="description">
           <p class="title"><td><%= link_to (mybook.title), mybook, class:"btn default", style:"text-decoration: none; text-align:center; font-weight: bold" %>
             </td> 
-            
+        
             <div class="containercart" style="padding-right: 0px; text-align: left;">
             <% if @cart.include?(mybook) %>
-              <%= button_to "Remove from cart", remove_from_cart_path(mybook), method: :delete %>
+              <%= button_to "Remove from cart", remove_from_cart_path(mybook), method: :delete, class: "btn btn-danger", type: "button" %>
             <% else %>
-              <%= button_to "Add to cart", add_to_cart_path(mybook) %>
+              <%= button_to "Add to cart", add_to_cart_path(mybook), class: "btn btn-primary", type: "button" %>
             <% end %>    
             </div>
 
@@ -180,10 +269,30 @@ h1 {
 
     <% end %>  
 
+        </div>
+      </div>
+      
+  <div id = "rightbox" class="border border-dark">
+      <table class="table">
+      <thead class="thead-dark">
+        <tr>
+       <th>Your cart <i style="font-size:24px" class="fa">&#xf07a;</i></th>
+     </tr>
+     </thead>
+   </table>
+
+
+    <% @cart.each do |mybook| %>
+      <strong style="padding-left: 10px;"><%= mybook.title %></strong><br><br>
+    <% end %> 
+    
+    <% if @cart.present? %> 
+       <% @cart.collect { |item| item.to_builder.attributes! } %>
+       
+     <%= button_to "Buy", checkout_create_path, remote: true, data: {turbo: false}, class: "btn btn-primary", type: "button", style: "margin-left: 36%; margin-bottom: 4px;" %>
+    <% end %>
+      </div>
   </div>
-
-
-
-
-
-
+  <div style="height: 800px"></div>
+  
+        
