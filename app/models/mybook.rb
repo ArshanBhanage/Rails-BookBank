@@ -3,8 +3,9 @@ class Mybook < ApplicationRecord
 	belongs_to :user
    #searchkick
 	searchkick word_middle: [:title, :price, :semester, :subject], suggest:[:title]
-   validates :title, :price, presence: true 
-   
+   validates :title, :price, :year, :semester, :name, :email, :instagram, :subject, :description, presence: true 
+   validate :correct_image_type
+
 
   def to_s
    title
@@ -35,5 +36,17 @@ end
          name: name,
    	}
    end  
+
+
+private
+
+def correct_image_type
+   if image.attached? && !image.content_type.in?(%w(image/jpeg image/png image/jpg image/jiff))
+      errors.add(:image, 'must be attached')
+   elsif image.attached? == false
+      errors.add(:image, 'must be attached')
+   end
+end
+
 
 end
