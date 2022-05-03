@@ -31,8 +31,8 @@ Book stuff
 
 .book {
   display: inline-block;
-  width: 200px;
-  height: 290px;
+  width: 150px;
+  height: 240px;
   box-shadow: 0 0 20px #aaa;
   margin: 25px;
   padding: 10px 10px 0 10px;
@@ -105,10 +105,10 @@ Amount paid:
 <% @session_with_expand.currency %></strong>
 
 
-
-<div class="containerabcd" style="text-align: center;"> 
+  
 <br><strong>Items bought:</strong>
 <% @session_with_expand.line_items.data.each do |line_item| %>
+<div class="containerabcd" > 
   <% mybook = Mybook.find_by(stripe_mybook_id: line_item.price.product) %>
   <br>
            
@@ -128,6 +128,9 @@ Amount paid:
       
       
 
+
+ 
+  
 <% end %>
- </div>
+</div>
 </div>

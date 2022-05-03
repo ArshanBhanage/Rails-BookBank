@@ -35,7 +35,7 @@ Book stuff
   display: inline-block;
   width: 230px;
   height: 330px;
-  box-shadow: 0 0 20px #aaa;
+  box-shadow: 0 0 20px lightskyblue;
   margin: 25px;
   padding: 10px 10px 0 10px;
   vertical-align: top;
@@ -45,7 +45,7 @@ Book stuff
 
 .cover {
   border: 2px solid gray;
-  height: 66%;
+  height: 64%;
   overflow: hidden;
 }
 
@@ -86,7 +86,7 @@ Book stuff
 other
 **********************************/
 
-h1 {
+h3 {
   color: gray;
   text-align: center;
   font-size: 50px;
@@ -121,10 +121,10 @@ h1 {
       }
     </style>
   
-<h1>List of all Books</h1><br>
+<h3 style="text-align: center;">List of all Books</h3><br>
 
   <%= form_tag(mybooks_path, method: :get, class: "form_inline", role: 'search') do %>
-  <div class="input-group " style="width: 1000px; margin-left: 280px">
+  <div class="input-group " style="width: 800px; margin-left: 380px; ">
     <%= text_field_tag :query, params[:query],
     id: 'mybooks_search',
     autocomplete: :on,
@@ -241,20 +241,20 @@ h1 {
       <div id = "middlebox" >
         <div class="containerabcd" style="text-align: center;">
               <% @mybooks.each do |mybook| %>    
-      <div class="book read">
+      <div class="book read" style="width:172px">
         <div class="cover">
         
           <%= link_to (image_tag mybook.image, height:"100%", width:"100%"), mybook %>
           </div>
         <div class="description">
-          <p class="title"><td><%= link_to (mybook.title), mybook, class:"btn default", style:"text-decoration: none; text-align:center; font-weight: bold" %>
+          <p class="title"><td><%= link_to (mybook.title), mybook, class:"btn default", style:"text-decoration: none; text-align:center; font-weight: bold; font-size:11.5px; padding-left:0px; " %>
             </td> 
         
             <div class="containercart" style="padding-right: 0px; text-align: left;">
             <% if @cart.include?(mybook) %>
-              <%= button_to "Remove from cart", remove_from_cart_path(mybook), method: :delete, class: "btn btn-danger", type: "button" %>
+              <%= button_to "Remove from cart", remove_from_cart_path(mybook), method: :delete, class: "btn btn-danger", type: "button", style: "font-size: 10px;" %>
             <% else %>
-              <%= button_to "Add to cart", add_to_cart_path(mybook), class: "btn btn-primary", type: "button" %>
+              <%= button_to "Add to cart", add_to_cart_path(mybook), class: "btn btn-primary", type: "button", style: "font-size: 10px;" %>
             <% end %>    
             </div>
 
@@ -283,8 +283,14 @@ h1 {
 
 
     <% @cart.each do |mybook| %>
-      <strong style="padding-left: 10px;"><%= mybook.title %></strong><br><br>
-    <% end %> 
+    <div style="text-align:center;">
+      <%= image_tag mybook.image, height: "30%", width: "30%" %>
+      <strong style="padding-left: 10px; font-size: 10px;"><%= mybook.title %><br><i><i>₹</i><%= mybook.price %></i></strong>
+      <hr>
+    </div>
+    <% end %>
+    
+     
     
     <% if @cart.present? %> 
        <% @cart.collect { |item| item.to_builder.attributes! } %>
