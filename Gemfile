@@ -50,11 +50,6 @@ group :development do
   gem 'rack-mini-profiler', '~> 2.0'
 end
 
-group :production do
-  #gem 'pg', '~> 1.2', '>= 1.2.3'
-  gem 'pg', '~> 1.3', '>= 1.3.5'
-end
-
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 3.26'
@@ -69,3 +64,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "ransack", "~> 2.4"
 gem 'jquery-ui-rails', '~> 6.0', '>= 6.0.1'
 gem 'kaminari'
+
+
+group :production do
+  #gem 'pg', '~> 1.2', '>= 1.2.3'
+  gem 'pg', '~> 1.3', '>= 1.3.5'
+end
