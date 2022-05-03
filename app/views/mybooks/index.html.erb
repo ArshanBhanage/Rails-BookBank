@@ -56,7 +56,7 @@ Book stuff
 .book p {
     text-align: center;
   margin-top: 1px;
-  font-size: 20px;
+  font-size: 5px;
 }
 
 .book .author {
@@ -100,13 +100,13 @@ h1 {
       #leftbox {
         float:left;
         background:#EFE9E9;
-        width:16%;
+        width:18%;
         height:auto;
       }
       #middlebox{
         float:left;
         background:White;
-        width:68%;
+        width:66%;
         height:auto;
       }
       #rightbox{
@@ -150,7 +150,7 @@ h1 {
 <% end %>
 
   
-    <div id = "boxes" style="margin-bottom: 100px; width: 1500px;height: 100%; padding-left: 2%; padding-bottom: 30%; ">
+    <div id = "boxes" style="margin-bottom: 100px; width: 1500px;height: auto; padding-left: 2%; padding-bottom: 100%; ">
       
       
       <div id = "leftbox" class="border border-dark">
@@ -165,12 +165,12 @@ h1 {
 <% @mybooks.aggs["email"]["buckets"].each do |bucket| %>  
 <div>
   <% if params[:email] == bucket["key"] %>
-     <input type="checkbox" name="field name" value="Initial value" checked="yes" style="margin-left: 5%;"><strong><%= link_to bucket["key"], request.params.except(:email), style:"text-decoration:none; color:Black;" %></strong>
+     <input type="checkbox" name="field name" value="Initial value" checked="yes" style="margin-left: 3%;"><strong><%= link_to bucket["key"], request.params.except(:email), style:"text-decoration:none; color:Black;" %></strong>
   <% else %>
-     <input type="checkbox" name="field name" value="Initial value"style="margin-left: 5%;"><%= link_to bucket["key"], request.params.merge(email: bucket["key"]), style:"text-decoration:none; color:Black;" %>
+     <input type="checkbox" name="field name" value="Initial value"style="margin-left: 3%;"><%= link_to bucket["key"], request.params.merge(email: bucket["key"]), style:"text-decoration:none; color:Black;" %>
   <% end %>   
  
-  <h9>(</h9><%= bucket["doc_count"] %><h9>)</h9>      
+  <h9>(</h9><%= bucket["doc_count"]%><h9>)</h9>      
 </div>
 <% end %>
 <br>
@@ -238,7 +238,7 @@ h1 {
   </div>
       </div>
       
-      <div id = "middlebox" class="border border-dark">
+      <div id = "middlebox" >
         <div class="containerabcd" style="text-align: center;">
               <% @mybooks.each do |mybook| %>    
       <div class="book read">

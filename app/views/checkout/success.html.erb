@@ -1,13 +1,133 @@
-<h1>Success</h1>
+    
+<style>
+.containerabcd {
+  margin: 0 auto;
+  max-width: 910px;
+}
 
-Checkout status: <%= @session_with_expand.payment_status %>
+.containerbuy {
+  margin: 0 auto;
+  max-width: 910px;
+}
+
+.containercart {
+  margin: 0 auto;
+  max-width: 910px;
+}
+
+.choose {
+  width: 100%;
+  height: 20px;
+}
+.fa {
+  margin-right: 20px;
+  font-size: 30px;
+  color: gray;
+  float: right;
+}
+/******************************************
+Book stuff
+*******************************************/
+
+.book {
+  display: inline-block;
+  width: 200px;
+  height: 290px;
+  box-shadow: 0 0 20px #aaa;
+  margin: 25px;
+  padding: 10px 10px 0 10px;
+  vertical-align: top;
+  transition: height 1s;
+  border-style: groove;
+}
+
+.cover {
+  border: 2px solid gray;
+  height: 66%;
+  overflow: hidden;
+}
+
+.cover img {
+  width: 100%;
+}
+
+.book p {
+    text-align: center;
+  margin-top: 1px;
+  font-size: 5px;
+}
+
+.book .author {
+  text-align: center;
+  font-size: 13px;
+}
+@media (max-width: 941px) {
+  .containerabcd {
+    max-width: 700px;
+  }
+  .book {
+    margin: 49px;
+    text-align: center;
+}
+@media (max-width: 730px) {
+  .book {
+    display: block;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+  .cover {
+    
+  }
+}
+
+/*********************************
+other
+**********************************/
+
+h1 {
+  color: gray;
+  text-align: center;
+  font-size: 50px;
+  margin-bottom: -3px;
+}
+</style>
+
+
+
+
+
+<div style="text-align: center;"><h3>Success</h3>
+
+Checkout status: <strong style="color: green"><%= @session_with_expand.payment_status %></strong>
 <br>
 Amount paid: 
-<%= @session_with_expand.amount_total/100.to_f %>
-<%= @session_with_expand.currency %>
+<strong><i>₹</i><%= @session_with_expand.amount_total/100.to_f %>
+<% @session_with_expand.currency %></strong>
 
+
+
+<div class="containerabcd" style="text-align: center;"> 
+<br><strong>Items bought:</strong>
 <% @session_with_expand.line_items.data.each do |line_item| %>
   <% mybook = Mybook.find_by(stripe_mybook_id: line_item.price.product) %>
   <br>
-  <%= mybook.title %>
+           
+      <div class="book read">
+        <div class="cover">
+        
+          <%= image_tag mybook.image %>
+          </div>
+        <div class="description">
+          <p class="title"><td><strong style="font-size: 15px;"><%= mybook.title %></strong>
+            <br><br><strong style="font-size: 13px;"><i>₹</i><%= mybook.price %></strong></td>
+            </p>
+
+        </div>
+
+      </div>
+      
+      
+
 <% end %>
+ </div>
+</div>

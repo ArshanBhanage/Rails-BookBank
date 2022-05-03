@@ -68,4 +68,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "ransack", "~> 2.4"
 gem 'jquery-ui-rails', '~> 6.0', '>= 6.0.1'
-#gem 'pagy'
+gem 'kaminari'

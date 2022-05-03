@@ -64,10 +64,14 @@
 </p>
 
 <p>
-  <strong>Book Description:</strong>
-  <%= @mybook.description %>
+  <strong>Book Edition:</strong>
+  <%= @mybook.instagram %>
 </p>
 
+<p>
+  <strong>Author:</strong>
+  <%= @mybook.name %>
+</p>
 
 
 </div>
@@ -95,22 +99,20 @@
   <i>₹</i><%= @mybook.price %>
 </p>
 
-<p>
-  <strong>Author:</strong>
-  <%= @mybook.name %>
-</p>
+
 <p>
   <strong>Branch:</strong>
   <%= @mybook.email %>
-</p>
-<p>
-  <strong>Book Edition:</strong>
-  <%= @mybook.instagram %>
 </p>
 
 <p>
   <strong>Semester:</strong>
   <%= @mybook.semester %>
+</p>
+
+<p>
+  <strong>Book Description:</strong>
+  <%= @mybook.description %>
 </p>
 
 <% button_to "Buy", checkout_create_path, params: {id: @mybook.id}, remote: true, data: {turbo: false} %>

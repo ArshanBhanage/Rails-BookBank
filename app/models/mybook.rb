@@ -1,4 +1,5 @@
 class Mybook < ApplicationRecord
+   #paginates_per 9
 	has_one_attached :image
 	belongs_to :user
    #searchkick
@@ -41,7 +42,7 @@ end
 private
 
 def correct_image_type
-   if image.attached? && !image.content_type.in?(%w(image/jpeg image/png image/jpg image/jiff))
+   if image.attached? && !image.content_type.in?(%w(image/jpeg image/png image/jpg image/jiff image/webp))
       errors.add(:image, 'must be attached')
    elsif image.attached? == false
       errors.add(:image, 'must be attached')

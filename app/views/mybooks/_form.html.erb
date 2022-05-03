@@ -22,7 +22,7 @@
 {
     width: 50%;
     border-radius: 1rem;
-    padding: 1.5%;
+    padding: 1%;
     border: none;
     cursor: pointer;
 }
@@ -94,13 +94,12 @@
     <%= form.label :Condition %>
     
       <%= form.select(:year, options_for_select([['Good','Good'],['Moderate','Moderate'],['Bad','Bad']])) %>
+      <br>
+      <%= form.text_field :description, class:"form-control", placeholder:"Book Description" %>
    
   </div>
 
-  <div class="form-group">
-    <%= form.text_field :description, class:"form-control", placeholder:"Book Description" %>
-  </div>
-
+  
   <div class="form-group">
     <%= form.text_field :price, class:"form-control", placeholder:"Price" %>
   </div>
@@ -124,27 +123,22 @@
     <%= form.label :Semester %>
     
       <%= form.select(:semester, options_for_select([['Semester 1','Semester 1'],['Semester 2','Semester 2'],['Semester 3','Semester 3'],['Semester 4','Semester 4'],['Semester 5','Semester 5'],['Semester 6','Semester 6'],['Semester 7','Semester 7'],['Semester 8','Semester 8']])) %>
+      <br>
+      <%= form.text_field :name, class:"form-control", placeholder:"Author" %>
    
   </div>
 
-  <div class="form-group">
-    <%= form.text_field :name, class:"form-control", placeholder:"Author" %>
-  </div>
 
   <div class="form-group">
     <%# <%= form.text_field :email, class:"form-control", placeholder:"Branch" %>
   
       <%= form.label :Branch %>
     
-      <%= form.select(:email, options_for_select([['Computer Science','Computer Science'],['Information Technology','Information Technology'],['Electronics and Telecommunication','Electronics and Telecommunication'],['Mechanical Engineering','Mechanical Engineering'],['Electrical Engineering','Electrical Engineering'],['Civil Engineering','Civil Engineering'],['Chemical Engineering','Chemical Engineering']])) %>
-   
+      <%= form.select(:email, options_for_select([['Computer Science','Computer Science'],['Information Technology','Information Technology'],['Electronics & Telecommunication','Electronics & Telecommunication'],['Mechanical Engineering','Mechanical Engineering'],['Electrical Engineering','Electrical Engineering'],['Civil Engineering','Civil Engineering'],['Chemical Engineering','Chemical Engineering']])) %>
+       <br>
+      <%= form.text_field :instagram, class:"form-control", placeholder:"Book Edition" %>
   </div>
 
-  <div class="form-group">
-    
-    <%= form.text_field :instagram, class:"form-control", placeholder:"Book Edition" %>
-  </div>      
-   
 
   <div class="form-group">
     <%= form.submit class:"btnSubmit" %> |
